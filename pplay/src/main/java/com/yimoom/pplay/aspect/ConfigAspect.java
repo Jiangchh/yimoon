@@ -16,17 +16,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 @Aspect
 @Component
-public class DbLogAspect {
-
-
-
-    private static final Logger logger = LoggerFactory.getLogger(DbLogAspect.class);
+public class ConfigAspect {
+    private static final Logger logger = LoggerFactory.getLogger(ConfigAspect.class);
     /**
            * 以自定义注解为切点
+           * //两个..代表所有子目录，最后括号里的两个..代表所有参数
      */
-    @Pointcut("@annotation(com.yimoom.pplay.log.DbLog)")
+    @Pointcut("execution( * com.yimoom.pplay.config..*.*(..))")
     public void logPointCut() {
     }
 
@@ -62,6 +61,4 @@ public class DbLogAspect {
         logger.info("耗时 : " + (System.currentTimeMillis() - startTime));
         return ob;
     }
-
-
 }

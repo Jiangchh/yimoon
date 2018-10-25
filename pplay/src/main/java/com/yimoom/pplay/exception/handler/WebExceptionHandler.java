@@ -19,7 +19,7 @@ public class WebExceptionHandler {
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public Result handleBDException(NoHandlerFoundException e) {
 		logger.error(e.getMessage(), e);
-		Result r=new Result(false, null, e.getMessage());
+		Result r=new Result(false, "kale", e.getMessage());
 		return r;
 	}
 }

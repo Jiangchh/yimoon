@@ -13,7 +13,10 @@ import com.google.common.base.Charsets;
 public class Constants {
 
     public static final String APP_NAME = "sunny";
-
+    /**
+     * redis的超时时间
+     */
+    public static final long TOKEN_EXPIRES_HOUR=86400;
     /**
      * 系统编码
      */
