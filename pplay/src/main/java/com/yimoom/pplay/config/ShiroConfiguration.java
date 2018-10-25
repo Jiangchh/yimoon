@@ -1,14 +1,15 @@
 package com.yimoom.pplay.config;
 
-import java.util.LinkedHashMap;  
-import java.util.Map;  
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import org.apache.shiro.mgt.SecurityManager;  
-import org.apache.shiro.spring.web.ShiroFilterFactoryBean;  
+import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;  
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;  
 
 /** 
@@ -37,7 +38,11 @@ public class ShiroConfiguration {
 	 */  
 	@Bean  
 	public SecurityManager securityManager(){  
-		DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();  
+		DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager(); 
+		 //设置realm.
+	    securityManager.setRealm(myShiroRealm());
+	    //注入缓存管理器;
+	    securityManager.setCacheManager(ehCacheManager());//这个如果执行多次，也是同样的一个对象;
 		return securityManager;  
 	}  
 	@Bean  
@@ -72,5 +77,17 @@ public class ShiroConfiguration {
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);  
 		return shiroFilterFactoryBean;  
 	}  
-
+	/**
+	 * shiro缓存管理器;
+	  * 需要注入对应的其它的实体类中：
+	 * 1、安全管理器：securityManager
+	  * 可见securityManager是整个shiro的核心；
+	 * @return
+	 */
+	@Bean
+	public EhCacheManager ehCacheManager(){
+		EhCacheManager cacheManager = new EhCacheManager();
+		cacheManager.setCacheManagerConfigFile("classpath:config/ehcache.xml");
+		return cacheManager;
+	}
 }  
