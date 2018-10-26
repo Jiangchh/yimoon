@@ -32,11 +32,12 @@
 		<guava.version>23.0</guava.version>
 	</properties>
 	<dependencies>
-		<dependency>
+		<!-- dubbo的分布式架构用不到 -->
+		<!-- <dependency>
 			<groupId>com.alibaba.spring.boot</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>
 			<version>2.0.0</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- 切点 -->
 		<dependency>
@@ -64,11 +65,16 @@
 		<!-- 作为权限控制 -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
 			</dependency> -->
-		<!-- 模板 -->
+		<!-- 模板，用于前端开发 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
 		<!-- <dependency> <groupId>org.thymeleaf.extras</groupId> <artifactId>thymeleaf-extras-springsecurity5</artifactId> 
 			</dependency> -->
 

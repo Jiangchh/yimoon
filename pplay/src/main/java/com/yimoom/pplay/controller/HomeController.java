@@ -1,22 +1,48 @@
 package com.yimoom.pplay.controller;
 
-import org.springframework.stereotype.Controller;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yimoom.pplay.domain.Msg;
-import com.yimoom.pplay.log.WebLog;
 
 
 @Controller
 public class HomeController {
-	@WebLog("登陆主页")
-    @RequestMapping("/")
-    public String index(Model model){
-        Msg msg =  new Msg("测试标题","测试内容","额外信息，只对管理员显示");
-        model.addAttribute("msg", msg);
-        return "home";
+    @GetMapping({ "/", "","/index" })
+	String welcome(Model model) {
+		
+		return "redirect:/login";
+	}
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
+
+
+        // 登录失败从request中获取shiro处理的异常信息。
+        // shiroLoginFailure:就是shiro异常类的全类名.
+        Object exception = request.getAttribute("shiroLoginFailure");
+        String msg = "";
+        if (exception != null) {
+            if (UnknownAccountException.class.isInstance(exception)) {
+                msg = "账户不存在或密码不正确";
+            } else if (IncorrectCredentialsException.class.isInstance(exception)) {
+                msg = "账户不存在或密码不正确";
+            } else {
+                msg = "其他异常";
+            }
+        }
+
+        map.put("msg", msg);
+        // 此方法不处理登录成功,由shiro进行处理.
+        return "login";
     }
+
+
 }
 

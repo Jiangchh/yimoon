@@ -32,20 +32,7 @@ public class ConfigAspect {
 
     @Before("logPointCut()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
-        // 接收到请求，记录请求内容
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        // 记录下请求内容
-        logger.info("请求地址 : {}" , request.getRequestURL().toString());
-        logger.info("HTTP METHOD : {}" , request.getMethod());
-        logger.info("IP : {}" , request.getRemoteAddr());
-        // 获取真实的ip地址
-        //logger.info("IP : " + IPAddressUtil.getClientIpAddress(request));
-        logger.info("CLASS_METHOD : {}" , joinPoint.getSignature().getDeclaringTypeName() + "."
-                + joinPoint.getSignature().getName());
-        logger.info("Method参数 :{} " , Arrays.toString(joinPoint.getArgs()));
-//        loggger.info("参数 : " + joinPoint.getArgs());
-
+    	
     }
 
     @AfterReturning(returning = "ret", pointcut = "logPointCut()")// returning的值和doAfterReturning的参数名一致

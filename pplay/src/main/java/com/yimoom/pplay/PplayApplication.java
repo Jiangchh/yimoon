@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -13,12 +14,11 @@ import com.spring4all.swagger.EnableSwagger2Doc;
 
 import tk.mybatis.spring.annotation.MapperScan;
 @EnableAutoConfiguration
-@EnableTransactionManagement
 @ServletComponentScan
-@ComponentScan
 @EnableSwagger2Doc
 @MapperScan("com.yimoom.pplay.*.dao")
 @SpringBootApplication
+@EnableAspectJAutoProxy
 //@EnableCaching
 public class PplayApplication {
 	/**

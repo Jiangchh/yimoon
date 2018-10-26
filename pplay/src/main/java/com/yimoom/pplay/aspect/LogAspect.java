@@ -1,8 +1,6 @@
 package com.yimoom.pplay.aspect;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -21,7 +19,7 @@ public class LogAspect {
 	    }
 	    @Before("logPointCut()")
 	    public void doBefore(JoinPoint pjp) throws Throwable {
-			logger.info("当前执行的类是{0},方法是{1},参数是{2}",pjp.getClass(),pjp.getTarget(),pjp.getArgs());
+			logger.info("当前执行的类是{},方法是{},参数是{}",pjp.getClass(),pjp.getTarget(),pjp.getArgs());
 	       
 	    }
 }

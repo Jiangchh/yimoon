@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.yimoom.pplay.domain.Result;
-import com.yimoom.pplay.log.Log;
 @RestControllerAdvice
 public class WebExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(WebExceptionHandler.class);
@@ -15,7 +14,6 @@ public class WebExceptionHandler {
 	/**
 	 * 自定义异常
 	 */
-	@Log("异常，自定义")
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public Result handleBDException(NoHandlerFoundException e) {
 		logger.error(e.getMessage(), e);

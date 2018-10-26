@@ -1,8 +1,10 @@
 package com.yimoom.pplay.config;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -10,7 +12,9 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;  
+import org.springframework.context.annotation.Configuration;
+
+import com.yimoom.pplay.system.shiro.MyShiroRealm;  
 
 /** 
  * Shiro 配置 
@@ -45,6 +49,10 @@ public class ShiroConfiguration {
 	    securityManager.setCacheManager(ehCacheManager());//这个如果执行多次，也是同样的一个对象;
 		return securityManager;  
 	}  
+	@Bean
+	MyShiroRealm myShiroRealm() {
+		return new MyShiroRealm();
+	}
 	@Bean  
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager){
 		logger.info("init shiro");
@@ -60,7 +68,6 @@ public class ShiroConfiguration {
 		//拦截器.  
 		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();  
 		//配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了  
-		filterChainDefinitionMap.put("/logout", "logout");  
 		filterChainDefinitionMap.put("/login","anon");
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/js/**", "anon");
@@ -70,13 +77,25 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/druid/**", "anon");
 		filterChainDefinitionMap.put("/upload/**", "anon");
 		filterChainDefinitionMap.put("/files/**", "anon");
-		filterChainDefinitionMap.put("/", "anon");
+		filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
 		//<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;  
 		//<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->  
 		filterChainDefinitionMap.put("/**", "authc");  
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);  
 		return shiroFilterFactoryBean;  
 	}  
+	
+	//因为我们的密码是加过密的，所以，如果要Shiro验证用户身份的话，需要告诉它我们用的是md5加密的，并且是加密了两次。同时我们在自己的Realm中也通过SimpleAuthenticationInfo返回了加密时使用的盐。这样Shiro就能顺利的解密密码并验证用户名和密码是否正确了。
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");//散列算法:这里使用MD5算法;
+        hashedCredentialsMatcher.setHashIterations(2);//散列的次数，比如散列两次，相当于 md5(md5(""));
+        return hashedCredentialsMatcher;
+    }
+
+
 	/**
 	 * shiro缓存管理器;
 	  * 需要注入对应的其它的实体类中：
@@ -86,8 +105,14 @@ public class ShiroConfiguration {
 	 */
 	@Bean
 	public EhCacheManager ehCacheManager(){
-		EhCacheManager cacheManager = new EhCacheManager();
-		cacheManager.setCacheManagerConfigFile("classpath:config/ehcache.xml");
-		return cacheManager;
+		net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("es");
+    	EhCacheManager em = new EhCacheManager();
+    	if(cacheManager!=null) {
+            em.setCacheManagerConfigFile("classpath:config/ehcache.xml");
+            return em;
+    	} else {
+    		em.setCacheManager(cacheManager);
+    		return em;
+    	}
 	}
 }  

@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yimoom.pplay.dao.UserDao">
-    <resultMap id="userMap" type="com.yimoom.pplay.domain.SysUser">
+    <resultMap id="userMap" type="com.yimoom.pplay.domain.UserInfo">
         <id property="id" column="ID"/>
         <result property="username" column="username"/>
         <result property="password" column="PASSWORD"/>
@@ -12,11 +12,6 @@
 
     </resultMap>
     <select id="findByUserName" parameterType="String" resultMap="userMap">
-        select u.*
-        ,r.name
-        from Sys_User u
-        LEFT JOIN sys_role_user sru on u.id= sru.Sys_User_id
-        LEFT JOIN Sys_Role r on sru.Sys_Role_id=r.id
-        where username= #{username}
+       select * from user_info where username=#username#
     </select>
 </mapper>
