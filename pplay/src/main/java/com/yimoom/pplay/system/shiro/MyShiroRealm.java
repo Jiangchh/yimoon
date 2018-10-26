@@ -27,7 +27,6 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-        System.out.println("开始身份验证");
         String username = (String) token.getPrincipal(); //获取用户名，默认和login.html中的username对应。
         UserInfo userInfo = userInfoService.findByUsername(username);
 
@@ -51,7 +50,6 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-        System.out.println("开始权限配置");
 
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         UserInfo userInfo = (UserInfo) principals.getPrimaryPrincipal();
