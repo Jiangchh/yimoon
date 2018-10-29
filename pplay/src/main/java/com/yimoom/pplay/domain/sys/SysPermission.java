@@ -1,5 +1,6 @@
-package com.yimoom.pplay.domain;
+package com.yimoom.pplay.domain.sys;
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
 

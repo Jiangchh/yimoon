@@ -12,9 +12,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-import com.yimoom.pplay.domain.SysPermission;
-import com.yimoom.pplay.domain.SysRole;
-import com.yimoom.pplay.domain.UserInfo;
+import com.yimoom.pplay.domain.sys.SysPermission;
+import com.yimoom.pplay.domain.sys.SysRole;
+import com.yimoom.pplay.domain.sys.UserInfo;
 import com.yimoom.pplay.service.UserInfoService;
 
 public class MyShiroRealm extends AuthorizingRealm {

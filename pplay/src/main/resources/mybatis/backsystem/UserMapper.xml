@@ -2,11 +2,11 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yimoom.pplay.dao.UserDao">
-    <resultMap id="userMap" type="com.yimoom.pplay.domain.UserInfo">
+    <resultMap id="userMap" type="com.yimoom.pplay.domain.sys.UserInfo">
         <id property="id" column="ID"/>
         <result property="username" column="username"/>
         <result property="password" column="PASSWORD"/>
-        <collection property="roles" ofType="com.yimoom.pplay.domain.SysRole">
+        <collection property="roles" ofType="com.yimoom.pplay.domain.sys.SysRole">
             <result column="name" property="name"/>
         </collection>
 
