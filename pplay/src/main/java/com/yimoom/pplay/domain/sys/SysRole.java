@@ -1,63 +1,79 @@
 package com.yimoom.pplay.domain.sys;
 
-import javax.persistence.*;
-
-import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
-
-
-@Entity
-public class SysRole implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    private Long id; // 编号
-    private String role; // 角色标识程序中判断使用,如"admin",这个是唯一的:
-    private String description; // 角色描述,UI界面显示使用
-    private Boolean available = Boolean.FALSE; // 是否可用,如果不可用将不会添加给用户
-
-   
-    private List<SysPermission> permissions;
-
-  
-    private List<UserInfo> userInfos;// 一个角色对应多个用户
-
-    public List<UserInfo> getUserInfos() {
-        return userInfos;
-    }
-    public void setUserInfos(List<UserInfo> userInfos) {
-        this.userInfos = userInfos;
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public Boolean getAvailable() {
-        return available;
-    }
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-    public List<SysPermission> getPermissions() {
-        return permissions;
-    }
-    public void setPermissions(List<SysPermission> permissions) {
-        this.permissions = permissions;
-    }
+public class SysRole {
+    private long   rid;           
+    private String  role_Name;    
+    private String  description;     
+    private String  remark;          
+    private int  status;          
+    private long  version;         
+    private long  orderNo;         
+    private Date  createDate;
+    private List<SysPermission>Plist;
+    private List<SysPost>list;
+	public long getRid() {
+		return rid;
+	}
+	public void setRid(long rid) {
+		this.rid = rid;
+	}
+	public String getRole_Name() {
+		return role_Name;
+	}
+	public void setRole_Name(String role_Name) {
+		this.role_Name = role_Name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public long getVersion() {
+		return version;
+	}
+	public void setVersion(long version) {
+		this.version = version;
+	}
+	public long getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(long orderNo) {
+		this.orderNo = orderNo;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public List<SysPermission> getPlist() {
+		return Plist;
+	}
+	public void setPlist(List<SysPermission> plist) {
+		Plist = plist;
+	}
+	public List<SysPost> getList() {
+		return list;
+	}
+	public void setList(List<SysPost> list) {
+		this.list = list;
+	}
+	
 
 }
-

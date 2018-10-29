@@ -5,10 +5,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.spring4all.swagger.EnableSwagger2Doc;
 
@@ -19,7 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan("com.yimoom.pplay.*.dao")
 @SpringBootApplication
 @EnableAspectJAutoProxy
-//@EnableCaching
+@EnableRedisHttpSession
 public class PplayApplication {
 	/**
 	 * 这个方法只是想看一下事物管理者是谁，没什么用 	

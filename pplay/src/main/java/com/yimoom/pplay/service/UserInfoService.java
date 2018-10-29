@@ -1,8 +1,8 @@
 package com.yimoom.pplay.service;
 
-import com.yimoom.pplay.domain.sys.UserInfo;
+import com.yimoom.pplay.domain.sys.SysUser;
 
 public interface UserInfoService {
-    public UserInfo findByUsername(String username);
+    public SysUser findByUsername(String username);
 
 }
