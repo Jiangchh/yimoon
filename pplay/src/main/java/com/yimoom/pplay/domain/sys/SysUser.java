@@ -9,6 +9,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class SysUser implements UserDetails,Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2572612936538494734L;
 	private long uid;              
 	private String name;           
 	private String account; 
@@ -24,8 +28,15 @@ public class SysUser implements UserDetails,Serializable {
 	private int status;            
 	private String remark;         
 	private long orderNo;
+	private int onlineStatus;
 	private List<SysRole>list;
     private List<? extends GrantedAuthority> authorities;
+    public SysUser() {}
+    public SysUser(String account,String password,List<? extends GrantedAuthority> authorities) {
+    	this.account=account;
+    	this.password=password;
+    	this.authorities=authorities;
+    }
 	public long getUid() {
 		return uid;
 	}
@@ -123,6 +134,13 @@ public class SysUser implements UserDetails,Serializable {
 	public void setList(List<SysRole> list) {
 		this.list = list;
 	}
+	
+	public int getOnlineStatus() {
+		return onlineStatus;
+	}
+	public void setOnlineStatus(int onlineStatus) {
+		this.onlineStatus = onlineStatus;
+	}
 	public String getCredentialsSalt() {
 		
 		return "";
@@ -151,5 +169,23 @@ public class SysUser implements UserDetails,Serializable {
 	public boolean isEnabled() {
 		return true;
 	}
+	public void setAuthorities(List<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+	@Override
+    public String toString() {
+        return this.account;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.account.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.toString().equals(obj.toString());
+    }
+
 	
 }

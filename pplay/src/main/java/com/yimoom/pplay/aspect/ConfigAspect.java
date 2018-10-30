@@ -1,9 +1,5 @@
 package com.yimoom.pplay.aspect;
 
-import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -13,11 +9,11 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Aspect
+@EnableAspectJAutoProxy
 @Component
 public class ConfigAspect {
     private static final Logger logger = LoggerFactory.getLogger(ConfigAspect.class);

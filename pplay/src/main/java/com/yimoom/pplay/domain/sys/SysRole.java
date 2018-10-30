@@ -1,10 +1,15 @@
 package com.yimoom.pplay.domain.sys;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class SysRole {
-    private long   rid;           
+public class SysRole implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3743263367863889466L;
+	private long   rid;           
     private String  role_Name;    
     private String  description;     
     private String  remark;          

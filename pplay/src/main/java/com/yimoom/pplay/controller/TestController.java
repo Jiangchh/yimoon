@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yimoom.pplay.domain.sys.SysUser;
-import com.yimoom.pplay.service.UserInfoService;
+import com.yimoom.pplay.service.UserService;
 
 @RestController
 public class TestController {
 	@Autowired
-	UserInfoService uif;
+	UserService uif;
 	
 	@RequestMapping(value = "/test/{username}", method = RequestMethod.GET)
 	@ResponseBody
 	public SysUser hello(@PathVariable(name = "username") String username) {
-		return uif.findByUsername(username);
+		//return uif.findByUsername(username);
+		return null;
 	}
 }

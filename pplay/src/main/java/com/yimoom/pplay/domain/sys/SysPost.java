@@ -1,8 +1,13 @@
 package com.yimoom.pplay.domain.sys;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysPost {
+public class SysPost implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7643290823779931455L;
 	private long pid ;                    
 	private String post_Name ;              
 	private String description;             

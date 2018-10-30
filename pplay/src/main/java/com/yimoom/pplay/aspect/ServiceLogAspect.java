@@ -28,13 +28,10 @@ public class ServiceLogAspect {
      */
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        long beginTime = System.currentTimeMillis();
-        // 执行方法
-        Object result = point.proceed();
-        // 执行时长(毫秒)
-        long time = System.currentTimeMillis() - beginTime;
-        //异步保存日志
-        return result;
+    	  long startTime = System.currentTimeMillis();
+          Object ob = point.proceed();// ob 为方法的返回值
+          logger.info("耗时 : " + (System.currentTimeMillis() - startTime));
+          return ob;
     }
 
 

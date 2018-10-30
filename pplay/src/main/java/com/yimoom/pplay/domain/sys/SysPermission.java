@@ -1,8 +1,13 @@
 package com.yimoom.pplay.domain.sys;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysPermission {
+public class SysPermission implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4966048453266486925L;
 	private long perId;            
 	private String name;           
 	private String url;              
