@@ -17,7 +17,7 @@ public class ServiceLogAspect {
 
 
 
-    @Pointcut("@annotation(com.yimoom.pplay.log.ServiceLog)")
+    @Pointcut("@annotation(com.yimoom.pplay.annotation.ServiceLog)")
     public void logPointCut() {
     }
     /**

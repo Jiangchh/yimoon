@@ -5,9 +5,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+@Alias("SysUser")
 public class SysUser implements UserDetails,Serializable {
 	/**
 	 * 

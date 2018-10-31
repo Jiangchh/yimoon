@@ -10,24 +10,28 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.yimoom.pplay.common.base.dao.GenericDao;
+import com.yimoom.pplay.common.base.service.GenericService;
 import com.yimoom.pplay.constants.StatusConstants;
+import com.yimoom.pplay.dao.SysUserMapper;
 import com.yimoom.pplay.domain.sys.SysRole;
 import com.yimoom.pplay.domain.sys.SysUser;
+import com.yimoom.pplay.domain.sys.query.QuerySysUser;
 import com.yimoom.pplay.service.SysUserRoleService;
 import com.yimoom.pplay.service.UserService;
 @Service
-public class SysUserServiceImpl implements UserService{
+public class SysUserServiceImpl extends GenericService<SysUser, QuerySysUser> implements UserService{
 	
 	@Autowired
 	SysUserRoleService userRoleService;
+	
+	@Autowired
+	SysUserMapper sysUserMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		SysUser condition=new SysUser();
-		condition.setAccount(username);
 		//从数据库中取出用户信息
-		SysUser sysuser=null;
-				//userdao.selectOne(condition);
+		SysUser sysuser=sysUserMapper.findByUserName(username);
 
 		if (sysuser==null) {
 			throw new UsernameNotFoundException("用户名不存在！");
@@ -63,6 +67,11 @@ public class SysUserServiceImpl implements UserService{
 		user.setStatus(status);
 		//userdao.updateByPrimaryKeySelective(user);
 
+	}
+	@Override
+	protected GenericDao<SysUser, QuerySysUser> getDao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

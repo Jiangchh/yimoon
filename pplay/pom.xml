@@ -75,9 +75,16 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		</dependency>
+ 
+		<!-- 表示对thymeleaf模板不再是用默认的HTML5标准来做严格限制 -->
+		<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
 		</dependency>
+
 		<!-- <dependency> <groupId>org.thymeleaf.extras</groupId> <artifactId>thymeleaf-extras-springsecurity5</artifactId> 
 			</dependency> -->
 		<!--kaptcha验证码生成器 -->

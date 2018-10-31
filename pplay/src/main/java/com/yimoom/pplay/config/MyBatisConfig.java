@@ -1,6 +1,8 @@
 package com.yimoom.pplay.config;
-
+//@Configuration
+//@EnableTransactionManagement
 public class MyBatisConfig {
+	
 //    @Bean(name = "sqlSessionFactory")
 //    public SqlSessionFactory sqlSessionFactoryBean() {
 //    SqlSessionFactoryBean bean = new SqlSessionFactoryBean();

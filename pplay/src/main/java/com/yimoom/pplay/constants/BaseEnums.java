@@ -3,7 +3,7 @@ package com.yimoom.pplay.constants;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.yimoom.pplay.base.BaseEnum;
+import com.yimoom.pplay.common.base.constants.BaseEnum;
 
 /**
  * 基础枚举值

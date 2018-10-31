@@ -1,5 +1,8 @@
 package com.yimoom.pplay.domain.sys;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("SysUserRole")
 public class SysUserRole {
 	private Long id;          
 	private Long uid;     

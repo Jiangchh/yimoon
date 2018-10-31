@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping({ "/", "","/index" })
-	String welcome(Model model) {
-		
-		return "redirect:/login";
-	}
+//    @GetMapping({ "/", "","/index" })
+//	String welcome(Model model) {
+//		
+//		return "redirect:/login";
+//	}
     //@Secured({"ROLE_ADMIN","ROLE_USER"})//此方法只允许 ROLE_ADMIN 和ROLE_USER 角色 访问
 //    @RequestMapping("/login")
 //    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {

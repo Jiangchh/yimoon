@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yimoom.pplay.dao.SysUserMapper">
-	<resultMap type="SysUser" id="UserMap">
+	<resultMap type="com.yimoom.pplay.domain.sys.SysUser" id="UserMap">
 		<id property="uid" column="Uid" />
 		<result property="name" column="Name" />
 		<result property="account" column="Account" />
@@ -22,7 +22,7 @@
 	</resultMap>
 
 	<!-- 包含角色信息的map -->
-	<resultMap type="SysUser" id="UserLoginMap">
+	<resultMap type="com.yimoom.pplay.domain.sys.SysUser" id="UserLoginMap">
 		<id property="uid" column="uid" />
 		<result property="name" column="Name" />
 		<result property="account" column="Account" />
@@ -40,7 +40,7 @@
 		<result property="orderNo" column="OrderNo" />
 		<result property="onlineStatus" column="OnlineStatus" />
 		<result property="lastAccessTime" column="LastAccessTime" />
-		<collection property="roles" ofType="SysRole"
+		<collection property="roles" ofType="com.yimoom.pplay.domain.sys.SysRole"
 			javaType="ArrayList">
 			<result column="Rid" property="rid" jdbcType="VARCHAR" />
 			<result column="Description" property="description"
@@ -56,7 +56,7 @@
 		select * from Sys_User where account=#{account}
 	</select>
 	<!-- 根据账号来获取用户信息 -->
-	<select id="findByLogin" parameterType="String"
+	<select id="findRoleByAccount" parameterType="String"
 		resultMap="UserLoginMap">
 		select u.*,r.rid,r.Description,r.Role_Name from
 		Sys_User
@@ -69,7 +69,7 @@
 	</select>
 
 	<!--根据主键获取对象 -->
-	<select id="get" parameterType="SysUser" resultMap="UserMap">
+	<select id="get" parameterType="com.yimoom.pplay.domain.sys.SysUser" resultMap="UserMap">
 		select u.*
 		from Sys_User u
 		WHERE u.uid=#{uid}
@@ -77,7 +77,7 @@
 	<!--统计 -->
 	<!-- where 元素只会在至少有一个子元素的条件返回 SQL 子句的情况下才去插入“WHERE”子句。而且，若语句的开头为“AND”或“OR”，where元素也会将它们去除。 -->
 
-	<select id="count" parameterType="SysUser" resultType="int">
+	<select id="count" parameterType="com.yimoom.pplay.domain.sys.SysUser" resultType="int">
 		SELECT count(*) FROM Sys_User
 		<where>
 			<if test=" uid != null and uid != ''"> And Uid=#{uid}, </if>
@@ -100,10 +100,36 @@
 		</where>
 	</select>
 	<!-- 根据对象查询 -->
-	<select id="list" resultMap="UserMap" parameterType="SysUser">
+	<select id="list" resultMap="UserMap" parameterType="com.yimoom.pplay.domain.sys.SysUser">
 		select
 		Uid,Name,Account,Password,Icon,NickName,GenderAge,PhoneNo,Mail,CreateDate,Version,
 		Status,Remark,OrderNo,OnlineStatus,LastAccessTime
+		FROM Sys_User
+		<where>
+			<if test=" uid != null and uid != ''"> And Uid=#{uid}, </if>
+			<if test=" name != null and name != ''"> And Name=#{name}, </if>
+			<if test=" account != null and account != ''"> And Account=#{account}, </if>
+			<if test=" nickName != null and nickName != ''"> And Password=#{nickName}, </if>
+			<if test=" password != null and password != ''"> And Icon=#{password}, </if>
+			<if test=" icon != null and icon != ''"> And NickName=#{icon}, </if>
+			<if test=" gender != null and gender != ''"> And Gender=#{gender}, </if>
+			<if test=" age != null and age != ''"> And Age=#{age}, </if>
+			<if test=" phoneNo != null and phoneNo != ''"> And PhoneNo=#{phoneNo}, </if>
+			<if test=" mail != null and mail != ''"> And Mail=#{mail}, </if>
+			<if test=" createDate != null and createDate != ''"> And CreateDate=#{createDate}, </if>
+			<if test=" version != null and version != ''"> And Version=#{version}, </if>
+			<if test=" status != null and status != ''"> And Status=#{status}, </if>
+			<if test=" remark != null and remark != ''"> And Remark=#{remark}, </if>
+			<if test=" orderNo != null and orderNo != ''"> And OrderNo=#{orderNo}, </if>
+			<if test=" onlineStatus != null and onlineStatus != ''"> And OnlineStatus=#{onlineStatus}, </if>
+			<if test=" lastAccessTime != null and lastAccessTime != ''"> And LastAccessTime=#{lastAccessTime} </if>
+		</where>
+	</select>
+	<!--分页查询-->
+	<select id="findByPage" parameterType="com.yimoom.pplay.domain.sys.query.QuerySysUser" resultMap="UserMap">
+		select Uid,Name,Account,Password,Icon,NickName,GenderAge,PhoneNo,Mail,CreateDate,Version,
+		Status,Remark,OrderNo,OnlineStatus,LastAccessTime
+       FROM Sys_User 
 		<where>
 			<if test=" uid != null and uid != ''"> And Uid=#{uid}, </if>
 			<if test=" name != null and name != ''"> And Name=#{name}, </if>
@@ -135,8 +161,10 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
+
+
 	<!--保存 -->
-	<insert id="save" parameterType="SysUser"
+	<insert id="save" parameterType="com.yimoom.pplay.domain.sys.SysUser"
 		useGeneratedKeys="true" keyProperty="uid">
 		INSERT INTO
 		Sys_User(
@@ -178,7 +206,7 @@
 	</insert>
 
 	<!--修改 -->
-	<update id="update" parameterType="SysUser">
+	<update id="update" parameterType="com.yimoom.pplay.domain.sys.SysUser">
 		UPDATE Sys_User
 		<set>
 			<if test="name != null and name != ''">Name=#{name}, </if>
@@ -202,13 +230,13 @@
 	</update>
 
 	<!--删除 -->
-	<delete id="delete" parameterType="SysUser">
-		DELETE FROM user WHERE
-		id=#{id}
+	<delete id="delete" parameterType="com.yimoom.pplay.domain.sys.SysUser">
+		DELETE FROM Sys_User WHERE
+		id=#{uid}
 	</delete>
 	<!-- 批量删除 -->
-	<delete id="batchRemove" , parameterType="ArrayList">
-		delete from user where user_id in
+	<delete id="batchRemove"  parameterType="ArrayList">
+		delete from Sys_User where uid in
 		<foreach item="userId" collection="array" open="("
 			separator="," close=")">
 			#{userId}

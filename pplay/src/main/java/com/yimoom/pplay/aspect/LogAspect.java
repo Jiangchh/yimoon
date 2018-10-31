@@ -14,7 +14,7 @@ public class LogAspect {
 	    /**
 	           * 以自定义注解为切点
 	     */
-	    @Pointcut("@annotation(com.yimoom.pplay.log.Log)")
+	    @Pointcut("@annotation(com.yimoom.pplay.annotation.Log)")
 	    public void logPointCut() {
 	    }
 	    @Before("logPointCut()")

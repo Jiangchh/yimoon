@@ -1,4 +1,4 @@
-package com.yimoom.pplay.base;
+package com.yimoom.pplay.common.base.constants;
 /**
  * @version 1.0
  * @author jiangchenghua 2018-10-24

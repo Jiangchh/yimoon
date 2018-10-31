@@ -2,8 +2,10 @@ package com.yimoom.pplay.domain.sys.query;
 
 import java.util.Date;
 
-import com.yimoom.pplay.common.base.entity.QueryBase;
+import org.apache.ibatis.type.Alias;
 
+import com.yimoom.pplay.common.base.entity.QueryBase;
+@Alias("QuerySysUser")
 public class QuerySysUser extends QueryBase{
 	private Long uid;              
 	private String name;           

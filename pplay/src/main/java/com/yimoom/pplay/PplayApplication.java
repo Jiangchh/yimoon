@@ -1,12 +1,12 @@
 package com.yimoom.pplay;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import tk.mybatis.spring.annotation.MapperScan;
 @EnableAutoConfiguration
 @MapperScan("com.yimoom.pplay.dao")
 @SpringBootApplication
