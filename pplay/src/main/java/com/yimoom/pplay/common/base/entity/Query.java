@@ -1,4 +1,4 @@
-package com.yimoom.pplay.utils;
+package com.yimoom.pplay.common.base.entity;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

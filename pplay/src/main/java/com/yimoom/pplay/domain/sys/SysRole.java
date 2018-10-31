@@ -8,28 +8,29 @@ public class SysRole implements Serializable{
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 3743263367863889466L;
-	private long   rid;           
-    private String  role_Name;    
+	private static final Long serialVersionUID = 3743263367863889466L;
+	private Long   rid;           
+    private String  roleName;    
     private String  description;     
     private String  remark;          
-    private int  status;          
-    private long  version;         
-    private long  orderNo;         
+    private Integer  status;          
+    private Long  version;         
+    private Long  orderNo;         
     private Date  createDate;
     private List<SysPermission>Plist;
     private List<SysPost>list;
-	public long getRid() {
+	public Long getRid() {
 		return rid;
 	}
-	public void setRid(long rid) {
+	public void setRid(Long rid) {
 		this.rid = rid;
 	}
-	public String getRole_Name() {
-		return role_Name;
+	
+	public String getRoleName() {
+		return roleName;
 	}
-	public void setRole_Name(String role_Name) {
-		this.role_Name = role_Name;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 	public String getDescription() {
 		return description;
@@ -43,22 +44,22 @@ public class SysRole implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public long getVersion() {
+	public Long getVersion() {
 		return version;
 	}
-	public void setVersion(long version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
-	public long getOrderNo() {
+	public Long getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(long orderNo) {
+	public void setOrderNo(Long orderNo) {
 		this.orderNo = orderNo;
 	}
 	public Date getCreateDate() {

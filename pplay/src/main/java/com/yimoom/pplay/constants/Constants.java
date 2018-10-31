@@ -31,44 +31,46 @@ public class Constants {
 
 	/**
 	 * 标识：是/否、启用/禁用等
+	 * interface default add pre public static
 	 */
-	public interface Flag {
+	
+	public  interface Flag {
 
-		Integer YES = 1;
+		 Integer YES = 1;
 
-		Integer NO = 0;
+		 Integer NO = 0;
 	}
 
 	/**
 	 * 操作类型
 	 */
-	public interface Operation {
+	public  interface Operation {
 		/**
 		 * 添加
 		 */
-		String ADD = "add";
+		 String ADD = "add";
 		/**
 		 * 更新
 		 */
-		String UPDATE = "update";
+		 String UPDATE = "update";
 		/**
 		 * 删除
 		 */
-		String DELETE = "delete";
+		 String DELETE = "delete";
 	}
 
 	/**
 	 * 性别
 	 */
-	public interface Gender {
+	public  interface Gender {
 		/**
 		 * 男
 		 */
-		Integer MALE = 1;
+		  Integer MALE = 1;
 		/**
 		 * 女
 		 */
-		Integer FEMALE = 0;
+		  Integer FEMALE = 0;
 	}
 
 }

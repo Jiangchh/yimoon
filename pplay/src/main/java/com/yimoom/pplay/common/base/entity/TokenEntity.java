@@ -1,4 +1,4 @@
-package com.yimoom.pplay.domain;
+package com.yimoom.pplay.common.base.entity;
 
 public class TokenEntity {
 	

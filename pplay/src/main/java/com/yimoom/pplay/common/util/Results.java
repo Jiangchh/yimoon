@@ -1,6 +1,6 @@
-package com.yimoom.pplay.utils;
+package com.yimoom.pplay.common.util;
 
-import com.yimoom.pplay.domain.Result;
+import com.yimoom.pplay.common.base.entity.Result;
 
 /**
  * Result生成工具类

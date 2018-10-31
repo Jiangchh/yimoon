@@ -1,6 +1,6 @@
 package com.yimoom.pplay.service;
 
-import com.yimoom.pplay.domain.TokenEntity;
+import com.yimoom.pplay.common.base.entity.TokenEntity;
 
 public interface TokenService {
     /**

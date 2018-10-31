@@ -1,17 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yimoom.pplay.dao.UserDao">
-    <resultMap id="userMap" type="com.yimoom.pplay.domain.sys.SysUser">
-        <id property="id" column="ID"/>
-        <result property="username" column="username"/>
-        <result property="password" column="PASSWORD"/>
-        <collection property="roles" ofType="com.yimoom.pplay.domain.sys.SysRole">
-            <result column="name" property="name"/>
-        </collection>
+<mapper namespace="com.yimoom.pplay.dao.SysUserMapper">
+	<resultMap type="SysUser" id="UserMap">
+		<id property="uid" column="Uid" />
+		<result property="name" column="Name" />
+		<result property="account" column="Account" />
+		<result property="nickName" column="Password" />
+		<result property="password" column="Icon" />
+		<result property="icon" column="NickName" />
+		<result property="gender" column="Gender" />
+		<result property="age" column="Age" />
+		<result property="phoneNo" column="PhoneNo" />
+		<result property="mail" column="Mail" />
+		<result property="createDate" column="CreateDate" />
+		<result property="version" column="Version" />
+		<result property="status" column="Status" />
+		<result property="remark" column="Remark" />
+		<result property="orderNo" column="OrderNo" />
+		<result property="onlineStatus" column="OnlineStatus" />
+		<result property="lastAccessTime" column="LastAccessTime" />
+	</resultMap>
 
-    </resultMap>
-    <select id="findByUserName" parameterType="String" resultMap="userMap">
-       select * from Sys_User where account=#account#
-    </select>
+	<!-- 包含角色信息的map -->
+	<resultMap type="SysUser" id="UserLoginMap">
+		<id property="uid" column="uid" />
+		<result property="name" column="Name" />
+		<result property="account" column="Account" />
+		<result property="nickName" column="Password" />
+		<result property="password" column="Icon" />
+		<result property="icon" column="NickName" />
+		<result property="gender" column="Gender" />
+		<result property="age" column="Age" />
+		<result property="phoneNo" column="PhoneNo" />
+		<result property="mail" column="Mail" />
+		<result property="createDate" column="CreateDate" />
+		<result property="version" column="Version" />
+		<result property="status" column="Status" />
+		<result property="remark" column="Remark" />
+		<result property="orderNo" column="OrderNo" />
+		<result property="onlineStatus" column="OnlineStatus" />
+		<result property="lastAccessTime" column="LastAccessTime" />
+		<collection property="roles" ofType="SysRole"
+			javaType="ArrayList">
+			<result column="Rid" property="rid" jdbcType="VARCHAR" />
+			<result column="Description" property="description"
+				jdbcType="VARCHAR" />
+			<result column="Role_Name" property="role_Name"
+				jdbcType="VARCHAR" />
+		</collection>
+	</resultMap>
+
+	<!-- 根据账号来获取用户信息 -->
+	<select id="findByUserName" parameterType="String"
+		resultMap="userMap">
+		select * from Sys_User where account=#{account}
+	</select>
+	<!-- 根据账号来获取用户信息 -->
+	<select id="findByLogin" parameterType="String"
+		resultMap="UserLoginMap">
+		select u.*,r.rid,r.Description,r.Role_Name from
+		Sys_User
+		u,Sys_user_role
+		ur,Sys_role r
+		where u.uid=ur.uid
+		and ur.rid=r.rid
+		and
+		u.account=#{account}
+	</select>
+
+	<!--根据主键获取对象 -->
+	<select id="get" parameterType="SysUser" resultMap="UserMap">
+		select u.*
+		from Sys_User u
+		WHERE u.uid=#{uid}
+	</select>
+	<!--统计 -->
+	<!-- where 元素只会在至少有一个子元素的条件返回 SQL 子句的情况下才去插入“WHERE”子句。而且，若语句的开头为“AND”或“OR”，where元素也会将它们去除。 -->
+
+	<select id="count" parameterType="SysUser" resultType="int">
+		SELECT count(*) FROM Sys_User
+		<where>
+			<if test=" uid != null and uid != ''"> And Uid=#{uid}, </if>
+			<if test=" name != null and name != ''"> And Name=#{name}, </if>
+			<if test=" account != null and account != ''"> And Account=#{account}, </if>
+			<if test=" nickName != null and nickName != ''"> And Password=#{nickName}, </if>
+			<if test=" password != null and password != ''"> And Icon=#{password}, </if>
+			<if test=" icon != null and icon != ''"> And NickName=#{icon}, </if>
+			<if test=" gender != null and gender != ''"> And Gender=#{gender}, </if>
+			<if test=" age != null and age != ''"> And Age=#{age}, </if>
+			<if test=" phoneNo != null and phoneNo != ''"> And PhoneNo=#{phoneNo}, </if>
+			<if test=" mail != null and mail != ''"> And Mail=#{mail}, </if>
+			<if test=" createDate != null and createDate != ''"> And CreateDate=#{createDate}, </if>
+			<if test=" version != null and version != ''"> And Version=#{version}, </if>
+			<if test=" status != null and status != ''"> And Status=#{status}, </if>
+			<if test=" remark != null and remark != ''"> And Remark=#{remark}, </if>
+			<if test=" orderNo != null and orderNo != ''"> And OrderNo=#{orderNo}, </if>
+			<if test=" onlineStatus != null and onlineStatus != ''"> And OnlineStatus=#{onlineStatus}, </if>
+			<if test=" lastAccessTime != null and lastAccessTime != ''"> And LastAccessTime=#{lastAccessTime} </if>
+		</where>
+	</select>
+	<!-- 根据对象查询 -->
+	<select id="list" resultMap="UserMap" parameterType="SysUser">
+		select
+		Uid,Name,Account,Password,Icon,NickName,GenderAge,PhoneNo,Mail,CreateDate,Version,
+		Status,Remark,OrderNo,OnlineStatus,LastAccessTime
+		<where>
+			<if test=" uid != null and uid != ''"> And Uid=#{uid}, </if>
+			<if test=" name != null and name != ''"> And Name=#{name}, </if>
+			<if test=" account != null and account != ''"> And Account=#{account}, </if>
+			<if test=" nickName != null and nickName != ''"> And Password=#{nickName}, </if>
+			<if test=" password != null and password != ''"> And Icon=#{password}, </if>
+			<if test=" icon != null and icon != ''"> And NickName=#{icon}, </if>
+			<if test=" gender != null and gender != ''"> And Gender=#{gender}, </if>
+			<if test=" age != null and age != ''"> And Age=#{age}, </if>
+			<if test=" phoneNo != null and phoneNo != ''"> And PhoneNo=#{phoneNo}, </if>
+			<if test=" mail != null and mail != ''"> And Mail=#{mail}, </if>
+			<if test=" createDate != null and createDate != ''"> And CreateDate=#{createDate}, </if>
+			<if test=" version != null and version != ''"> And Version=#{version}, </if>
+			<if test=" status != null and status != ''"> And Status=#{status}, </if>
+			<if test=" remark != null and remark != ''"> And Remark=#{remark}, </if>
+			<if test=" orderNo != null and orderNo != ''"> And OrderNo=#{orderNo}, </if>
+			<if test=" onlineStatus != null and onlineStatus != ''"> And OnlineStatus=#{onlineStatus}, </if>
+			<if test=" lastAccessTime != null and lastAccessTime != ''"> And LastAccessTime=#{lastAccessTime} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<!--保存 -->
+	<insert id="save" parameterType="SysUser"
+		useGeneratedKeys="true" keyProperty="uid">
+		INSERT INTO
+		Sys_User(
+		Name,
+		Account,
+		Password,
+		Icon,
+		NickName,
+		Gender,
+		Age,
+		PhoneNo,
+		Mail,
+		CreateDate,
+		Version,
+		Status,
+		Remark,
+		OrderNo,
+		OnlineStatus,
+		LastAccessTime
+		)
+		VALUES(
+		#{name},
+		#{account},
+		#{nickName},
+		#{password},
+		#{icon},
+		#{gender},
+		#{age},
+		#{phoneNo},
+		#{mail},
+		#{createDate},
+		#{version},
+		#{status},
+		#{remark},
+		#{orderNo},
+		#{onlineStatus},
+		#{lastAccessTime}
+		)
+	</insert>
+
+	<!--修改 -->
+	<update id="update" parameterType="SysUser">
+		UPDATE Sys_User
+		<set>
+			<if test="name != null and name != ''">Name=#{name}, </if>
+			<if test="account != null and account != ''">Account=#{account}, </if>
+			<if test="nickName != null and nickName != ''">Password=#{nickName}, </if>
+			<if test="password != null and password != ''">Icon=#{password}, </if>
+			<if test="icon != null and icon != ''">NickName=#{icon}, </if>
+			<if test="gender != null and genfer != ''">Gender=#{gender}, </if>
+			<if test="age != null and age != ''">Age=#{age}, </if>
+			<if test="phoneNo != null and phoneNo != ''">PhoneNo=#{phoneNo}, </if>
+			<if test="mail != null and mail != ''">Mail=#{mail}, </if>
+			<if test="createDate != null and createDate != ''">CreateDate=#{createDate}, </if>
+			<if test="version != null and version != ''">Version=#{version}, </if>
+			<if test="status != null and status != ''">Status=#{status}, </if>
+			<if test="remark != null and remark != ''">Remark=#{remark}, </if>
+			<if test="orderNo != null and orderNo != ''">OrderNo=#{orderNo}, </if>
+			<if test="onlineStatus != null and onlineStatus != ''">OnlineStatus=#{onlineStatus}, </if>
+			<if test="lastAccessTime != null and lastAccessTime != ''">LastAccessTime=#{lastAccessTime} </if>
+		</set>
+		WHERE Uid=#{uid}
+	</update>
+
+	<!--删除 -->
+	<delete id="delete" parameterType="SysUser">
+		DELETE FROM user WHERE
+		id=#{id}
+	</delete>
+	<!-- 批量删除 -->
+	<delete id="batchRemove" , parameterType="ArrayList">
+		delete from user where user_id in
+		<foreach item="userId" collection="array" open="("
+			separator="," close=")">
+			#{userId}
+		</foreach>
+	</delete>
+
 </mapper>

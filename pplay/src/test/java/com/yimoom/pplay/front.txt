@@ -1,0 +1,17 @@
+<if test=" uid != null and uid != ''">
+<if test=" name != null and name != ''">
+<if test=" account != null and account != ''">
+<if test=" nickName != null and nickName != ''">
+<if test=" password != null and password != ''">
+<if test=" icon != null and icon != ''">
+<if test=" gender != null and gender != ''">
+<if test=" age != null and age != ''">
+<if test=" phoneNo != null and phoneNo != ''">
+<if test=" mail != null and mail != ''">
+<if test=" createDate != null and createDate != ''">
+<if test=" version != null and version != ''">
+<if test=" status != null and status != ''">
+<if test=" remark != null and remark != ''">
+<if test=" orderNo != null and orderNo != ''">
+<if test=" onlineStatus != null and onlineStatus != ''">
+<if test=" lastAccessTime != null and lastAccessTime != ''">

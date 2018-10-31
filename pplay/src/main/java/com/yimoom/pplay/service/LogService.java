@@ -1,6 +1,6 @@
 package com.yimoom.pplay.service;
 
-import com.yimoom.pplay.domain.LogDO;
+import com.yimoom.pplay.common.base.entity.LogDO;
 
 
 

@@ -172,8 +172,19 @@
 			</exclusions>
 		</dependency>
 		<!-- 常用的集合操作，丰富的工具类 -->
-		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>fastjson</artifactId> 
-			<version>1.2.31</version> </dependency> -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.50</version>
+		</dependency>
+		<!-- 引入json的依赖 classifier必须要加这个是json的jdk的依赖-->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>

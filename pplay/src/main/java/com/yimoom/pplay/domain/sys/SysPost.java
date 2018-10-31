@@ -7,26 +7,27 @@ public class SysPost implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7643290823779931455L;
-	private long pid ;                    
-	private String post_Name ;              
+	private static final Long serialVersionUID = 7643290823779931455L;
+	private Long pid ;                    
+	private String postName ;              
 	private String description;             
 	private String remark ;                 
-	private int status;                  
-	private long version;                 
-	private long orderNo ;                
+	private Integer status;                  
+	private Long version;                 
+	private Long orderNo ;                
 	private Date createDate;
-	public long getPid() {
+	public Long getPid() {
 		return pid;
 	}
-	public void setPid(long pid) {
+	public void setPid(Long pid) {
 		this.pid = pid;
 	}
-	public String getPost_Name() {
-		return post_Name;
+	
+	public String getPostName() {
+		return postName;
 	}
-	public void setPost_Name(String post_Name) {
-		this.post_Name = post_Name;
+	public void setPostName(String postName) {
+		this.postName = postName;
 	}
 	public String getDescription() {
 		return description;
@@ -40,22 +41,22 @@ public class SysPost implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	public long getVersion() {
+	public Long getVersion() {
 		return version;
 	}
-	public void setVersion(long version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
-	public long getOrderNo() {
+	public Long getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(long orderNo) {
+	public void setOrderNo(Long orderNo) {
 		this.orderNo = orderNo;
 	}
 	public Date getCreateDate() {

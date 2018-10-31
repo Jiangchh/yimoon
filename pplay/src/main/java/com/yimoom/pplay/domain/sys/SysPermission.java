@@ -7,20 +7,20 @@ public class SysPermission implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4966048453266486925L;
-	private long perId;            
+	private static final Long serialVersionUID = -4966048453266486925L;
+	private Long perId;            
 	private String name;           
 	private String url;              
-	private int yype;              
-	private long parent_id;         
+	private Integer yype;              
+	private Long parentId;         
 	private String description;       
 	private String remark;            
-	private long orderNo;           
+	private Long orderNo;           
 	private Date createDate;
-	public long getPerId() {
+	public Long getPerId() {
 		return perId;
 	}
-	public void setPerId(long perId) {
+	public void setPerId(Long perId) {
 		this.perId = perId;
 	}
 	public String getName() {
@@ -35,17 +35,18 @@ public class SysPermission implements Serializable{
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public int getYype() {
+	public Integer getYype() {
 		return yype;
 	}
-	public void setYype(int yype) {
+	public void setYype(Integer yype) {
 		this.yype = yype;
 	}
-	public long getParent_id() {
-		return parent_id;
+	
+	public Long getParentId() {
+		return parentId;
 	}
-	public void setParent_id(long parent_id) {
-		this.parent_id = parent_id;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 	public String getDescription() {
 		return description;
@@ -59,10 +60,10 @@ public class SysPermission implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public long getOrderNo() {
+	public Long getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(long orderNo) {
+	public void setOrderNo(Long orderNo) {
 		this.orderNo = orderNo;
 	}
 	public Date getCreateDate() {

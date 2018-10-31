@@ -1,18 +1,10 @@
-package com.yimoom.pplay.domain.sys;
+package com.yimoom.pplay.domain.sys.query;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.yimoom.pplay.common.base.entity.QueryBase;
 
-public class SysUser implements UserDetails,Serializable {
-	/**
-	 * 
-	 */
-	private static final Long serialVersionUID = 2572612936538494734L;
+public class QuerySysUser extends QueryBase{
 	private Long uid;              
 	private String name;           
 	private String account; 
@@ -30,14 +22,6 @@ public class SysUser implements UserDetails,Serializable {
 	private Long orderNo;
 	private Integer onlineStatus;
 	private Date lastAccessTime;
-	private List<SysRole>list;
-    private List<? extends GrantedAuthority> authorities;
-    public SysUser() {}
-    public SysUser(String account,String password,List<? extends GrantedAuthority> authorities) {
-    	this.account=account;
-    	this.password=password;
-    	this.authorities=authorities;
-    }
 	public Long getUid() {
 		return uid;
 	}
@@ -56,7 +40,6 @@ public class SysUser implements UserDetails,Serializable {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	
 	public String getNickName() {
 		return nickName;
 	}
@@ -129,72 +112,17 @@ public class SysUser implements UserDetails,Serializable {
 	public void setOrderNo(Long orderNo) {
 		this.orderNo = orderNo;
 	}
-	public List<SysRole> getList() {
-		return list;
-	}
-	public void setList(List<SysRole> list) {
-		this.list = list;
-	}
-	
 	public Integer getOnlineStatus() {
 		return onlineStatus;
 	}
 	public void setOnlineStatus(Integer onlineStatus) {
 		this.onlineStatus = onlineStatus;
 	}
-	public String getCredentialsSalt() {
-		
-		return "";
-	}
-	
 	public Date getLastAccessTime() {
 		return lastAccessTime;
 	}
 	public void setLastAccessTime(Date lastAccessTime) {
 		this.lastAccessTime = lastAccessTime;
 	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		 return authorities;
-	}
-	@Override
-	public String getUsername() {
-		return account;
-	}
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-	public void setAuthorities(List<? extends GrantedAuthority> authorities) {
-		this.authorities = authorities;
-	}
-	
-	@Override
-    public String toString() {
-        return this.account;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.account.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.toString().equals(obj.toString());
-    }
-
 	
 }

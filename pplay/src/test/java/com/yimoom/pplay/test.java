@@ -1,17 +1,26 @@
 
 package com.yimoom.pplay;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class test {
 	public static void main(String[] args) {
-		List<Integer>list=new ArrayList<Integer>();
-		for (int i = 0; i < 99999; i++) {
-			list.add(99999-list.size());
+		StringBuilder sb=new StringBuilder();
+		try {
+			
+			List<String>front=Files.readAllLines(Paths.get(URLDecoder.decode((test.class.getResource("").getPath()+"front.txt").substring(1))));
+			List<String>back=Files.readAllLines(Paths.get(URLDecoder.decode((test.class.getResource("").getPath()+"back.txt").substring(1))));
+			for (int i = 0; i < front.size(); i++) {
+				sb.append(front.get(i).trim()).append(back.get(i)).append("\n");
+			}
+			System.err.println(sb.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		Collections.shuffle(list);
-		System.err.println(String.format("%05d",list.get(0)));
+		
 	}
 }

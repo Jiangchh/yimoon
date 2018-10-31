@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.yimoom.pplay.domain.Result;
-import com.yimoom.pplay.log.Log;
+import com.yimoom.pplay.annotation.Log;
+import com.yimoom.pplay.common.base.entity.Result;
 @RestControllerAdvice
 public class DefaultExceptionHandler {
 

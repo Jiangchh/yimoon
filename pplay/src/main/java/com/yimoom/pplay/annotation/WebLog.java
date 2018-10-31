@@ -1,4 +1,4 @@
-package com.yimoom.pplay.log;
+package com.yimoom.pplay.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

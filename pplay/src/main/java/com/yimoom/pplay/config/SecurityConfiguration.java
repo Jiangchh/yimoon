@@ -2,6 +2,7 @@ package com.yimoom.pplay.config;
 
 import javax.sql.DataSource;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+
 
 import com.yimoom.pplay.constants.Constants;
 import com.yimoom.pplay.service.UserService;
@@ -31,12 +34,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
 			@Override
 			public String encode(CharSequence charSequence) {
-				return charSequence.toString();
+				//查看源码已经加盐，所以没有了网上的MD5encoder
+				BCryptPasswordEncoder  encoder = new BCryptPasswordEncoder() ;
+				
+		        return encoder.encode(charSequence);
 			}
 
 			@Override
 			public boolean matches(CharSequence charSequence, String s) {
-				return s.equals(charSequence.toString());
+				BCryptPasswordEncoder  encoder = new BCryptPasswordEncoder ();
+			        return encoder.matches(charSequence, s);
+			
 			}
 		});
 	}
@@ -69,9 +77,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//             .usernameParameter("username")
 		//             .passwordParameter("password")
 		.and()
-		.logout().permitAll()
+		.logout()
+		.permitAll()
 		// 自动登录
-		.and().rememberMe()
+		.and()
+		.rememberMe()
 		.tokenRepository(persistentTokenRepository())
 		// 有效时间：单位s
 		.tokenValiditySeconds(Constants.TOKENVALIDITYSECONDS)

@@ -1,0 +1,17 @@
+ And Uid=#{uid},</if>
+ And Name=#{name},</if>
+ And Account=#{account},</if>
+ And Password=#{nickName},</if>
+ And Icon=#{password},</if>
+ And NickName=#{icon},</if>
+ And Gender=#{gender},</if>
+ And Age=#{age},</if>
+ And PhoneNo=#{phoneNo},</if>
+ And Mail=#{mail},</if>
+ And CreateDate=#{createDate},</if>
+ And Version=#{version},</if>
+ And Status=#{status},</if>
+ And Remark=#{remark},</if>
+ And OrderNo=#{orderNo},</if>
+ And OnlineStatus=#{onlineStatus},</if>
+ And LastAccessTime=#{lastAccessTime}</if>

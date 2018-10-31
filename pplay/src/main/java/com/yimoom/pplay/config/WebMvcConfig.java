@@ -8,18 +8,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
 	@Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //为了让swagger-ui的路径和项目路径一致
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		//为了让swagger-ui的路径和项目路径一致
 		registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
- 
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+		.addResourceLocations("classpath:/META-INF/resources/");
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
+		registry.addResourceHandler("/webjars/**")
+		.addResourceLocations("classpath:/META-INF/resources/webjars/");
+	}
+	/**
+	 * 此方法可以很方便的实现一个请求到视图的映射，而无需书写controller，例如： 
+	 */
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/main").setViewName("main");
+        registry.addViewController("/error").setViewName("error");
+
+	}
 }
 
