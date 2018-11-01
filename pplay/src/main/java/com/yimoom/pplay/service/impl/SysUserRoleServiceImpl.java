@@ -16,7 +16,6 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 	@Override
 	@Cacheable(value = "people", key = "#userId")
 	public List<SysRole> listByUserId(long userId) {
-		// TODO Auto-generated method stub
 		return userRoleMapper.listByUserId(userId);
 	}
 

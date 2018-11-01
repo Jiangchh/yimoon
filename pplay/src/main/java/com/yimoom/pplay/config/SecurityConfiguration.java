@@ -1,91 +1,108 @@
 package com.yimoom.pplay.config;
 
-import javax.sql.DataSource;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
-
-import com.yimoom.pplay.constants.Constants;
-import com.yimoom.pplay.service.UserService;
+import com.yimoom.pplay.service.impl.SysUserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
-	private UserService userDetailsService;
-	@Autowired
-	private DataSource dataSource;
+	private SysUserDetailsServiceImpl userDetailsService;
+
+	// 装载BCrypt密码编码器
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
-			@Override
-			public String encode(CharSequence charSequence) {
-				//查看源码已经加盐，所以没有了网上的MD5encoder
-				BCryptPasswordEncoder  encoder = new BCryptPasswordEncoder() ;
-				
-		        return encoder.encode(charSequence);
-			}
-
-			@Override
-			public boolean matches(CharSequence charSequence, String s) {
-				BCryptPasswordEncoder  encoder = new BCryptPasswordEncoder ();
-			        return encoder.matches(charSequence, s);
-			
-			}
-		});
+		auth
+		// 设置UserDetailsService
+		.userDetailsService(this.userDetailsService)
+		// 使用BCrypt进行密码的hash
+		.passwordEncoder(passwordEncoder());
 	}
 	/**
 	 * 替代rememberme的cookie方式，通过token记录
 	 * @return
 	 */
-	@Bean
-	public PersistentTokenRepository persistentTokenRepository(){
-		JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-		tokenRepository.setDataSource(dataSource);
-		// 如果token表不存在，使用下面语句可以初始化该表；若存在，会报错。
-		//	        tokenRepository.setCreateTableOnStartup(true);
-		return tokenRepository;
-	}
-	
+	//	@Bean
+	//	public PersistentTokenRepository persistentTokenRepository(){
+	//		JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+	//		tokenRepository.setDataSource(dataSource);
+	//		// 如果token表不存在，使用下面语句可以初始化该表；若存在，会报错。
+	//	    tokenRepository.setCreateTableOnStartup(true);
+	//		return tokenRepository;
+	//	}
 
+	/**
+	 * 不管url输入什么信息，入口都从这里设置的首页开始
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		// 如果有允许匿名的url，填在下面
-		//             .antMatchers().permitAll()
-		.anyRequest().authenticated()
-		.and()
-		
-		// 设置登陆页
-		.formLogin().loginPage("/templates/login")
-		// 设置登陆成功页
-		.defaultSuccessUrl("/").permitAll()
-		// 自定义登陆用户名和密码参数，默认为username和password
-		//             .usernameParameter("username")
-		//             .passwordParameter("password")
+		// 禁用缓存
+		http.headers().cacheControl();
+		//关闭跨站请求防护
+		http.csrf().disable();
+		http 
+		//请求授权
+		.authorizeRequests()
+		//不需要权限认证的url
+		.antMatchers("/login").permitAll()
+		// 对于获取token的rest api要允许匿名访问
+		.antMatchers("/auth/**").permitAll()
+		// 允许对于网站静态资源的无授权访问
+		.antMatchers(
+				"/",
+				"/css/**",
+				"/js/**",
+				"/*.html",
+				"/static/**",
+				"../static/js/",
+				"../static/css/",
+				"/**/favicon.ico",
+				"/**/*.html",
+				"/**/*.css",
+				"/**/*.js"
+				).permitAll()
+
+		// 基于token，所以不需要session
+		//   .sessionManagement().
+		//        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		//        .and()
+		//任何请求
+				.anyRequest()
+				//需要身份认证
+				.authenticated()		
+				.and()
+		//设置登录页面
+		.formLogin()
+		.loginPage("/login")
+		.defaultSuccessUrl("/index")
+		.permitAll()
 		.and()
 		.logout()
 		.permitAll()
 		// 自动登录
 		.and()
-		.rememberMe()
-		.tokenRepository(persistentTokenRepository())
+		//		.rememberMe()
+		//		.tokenRepository(persistentTokenRepository())
 		// 有效时间：单位s
-		.tokenValiditySeconds(Constants.TOKENVALIDITYSECONDS)
+		//		.tokenValiditySeconds(Constants.TOKENVALIDITYSECONDS)
 		.userDetailsService(userDetailsService);
 
 		//以下这句就可以控制单个用户只能创建一个session，也就只能在服务器登录一次        
@@ -137,6 +154,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public ServletListenerRegistrationBean httpSessionEventPublisher() {
 		return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
 	}
-	
+
 
 }
