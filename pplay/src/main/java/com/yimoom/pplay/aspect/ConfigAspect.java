@@ -40,8 +40,9 @@ public class ConfigAspect {
     @Around("logPointCut()")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();
+        logger.info("参数是:{}",pjp.getArgs());
         Object ob = pjp.proceed();// ob 为方法的返回值
-        logger.info("耗时 : " + (System.currentTimeMillis() - startTime));
+        logger.info("耗时 : {}",  (System.currentTimeMillis() - startTime));
         return ob;
     }
 }

@@ -193,8 +193,11 @@ public class SysUser implements UserDetails,Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return this.toString().equals(obj.toString());
+    public boolean equals(Object usr) {
+    	if (usr instanceof SysUser) {
+            return account.equals(((SysUser) usr).account);
+        }
+        return false;
     }
 
 	

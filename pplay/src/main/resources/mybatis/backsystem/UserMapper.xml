@@ -5,9 +5,9 @@
 		<id property="uid" column="Uid" />
 		<result property="name" column="Name" />
 		<result property="account" column="Account" />
-		<result property="nickName" column="Password" />
-		<result property="password" column="Icon" />
-		<result property="icon" column="NickName" />
+		<result property="nickName" column="NickName" />
+		<result property="password" column="Password" />
+		<result property="icon" column="Icon" />
 		<result property="gender" column="Gender" />
 		<result property="age" column="Age" />
 		<result property="phoneNo" column="PhoneNo" />
@@ -26,9 +26,9 @@
 		<id property="uid" column="Uid" />
 		<result property="name" column="Name" />
 		<result property="account" column="Account" />
-		<result property="nickName" column="Password" />
-		<result property="password" column="Icon" />
-		<result property="icon" column="NickName" />
+		<result property="nickName" column="NickName" />
+		<result property="password" column="Password" />
+		<result property="icon" column="Icon" />
 		<result property="gender" column="Gender" />
 		<result property="age" column="Age" />
 		<result property="phoneNo" column="PhoneNo" />
@@ -40,12 +40,12 @@
 		<result property="orderNo" column="OrderNo" />
 		<result property="onlineStatus" column="OnlineStatus" />
 		<result property="lastAccessTime" column="LastAccessTime" />
-		<collection property="roles" ofType="com.yimoom.pplay.domain.sys.SysRole"
+		<collection property="list" ofType="com.yimoom.pplay.domain.sys.SysRole"
 			javaType="ArrayList">
 			<result column="Rid" property="rid" jdbcType="VARCHAR" />
 			<result column="Description" property="description"
 				jdbcType="VARCHAR" />
-			<result column="Role_Name" property="role_Name"
+			<result column="Role_Name" property="roleName"
 				jdbcType="VARCHAR" />
 		</collection>
 	</resultMap>

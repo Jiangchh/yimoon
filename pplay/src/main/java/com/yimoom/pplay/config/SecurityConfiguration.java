@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		 http.headers().frameOptions().disable();
 		// 禁用缓存
 		http.headers().cacheControl();
 		//关闭跨站请求防护
@@ -65,20 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/login").permitAll()
 		// 对于获取token的rest api要允许匿名访问
 		.antMatchers("/auth/**").permitAll()
-		// 允许对于网站静态资源的无授权访问
-		.antMatchers(
-				"/",
-				"/css/**",
-				"/js/**",
-				"/*.html",
-				"/static/**",
-				"../static/js/",
-				"../static/css/",
-				"/**/favicon.ico",
-				"/**/*.html",
-				"/**/*.css",
-				"/**/*.js"
-				).permitAll()
+	
+		
 
 		// 基于token，所以不需要session
 		//   .sessionManagement().
@@ -92,6 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//设置登录页面
 		.formLogin()
 		.loginPage("/login")
+		.failureUrl("/login?error=true")
 		.defaultSuccessUrl("/index")
 		.permitAll()
 		.and()
@@ -107,8 +97,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		//以下这句就可以控制单个用户只能创建一个session，也就只能在服务器登录一次        
 		http.sessionManagement().maximumSessions(1)
+		//防止用户已经登陆
+		.maxSessionsPreventsLogin(true);
 		//.sessionRegistry(getSessionRegistry())
-		.expiredUrl("/login");
+		//这个逻辑是第二次重复登陆，会把最近的一个用户设置为过期，然后再操作时跳转
+		//.expiredUrl("/login");
 	}
 	/**
 	 * 3. 使session失效
@@ -133,17 +126,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//		}
 	//	}
 
-
+    /**
+     * 	// 允许对于网站静态资源的无授权访问
+     */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// 设置拦截忽略文件夹，可以对静态资源放行
-		web.ignoring().antMatchers("/assets/**");
-		web.ignoring().antMatchers("/components/**");
-		web.ignoring().antMatchers("/css/**");
-		web.ignoring().antMatchers("/images/**");
-		web.ignoring().antMatchers("/js/**");
-		web.ignoring().antMatchers("/mustache/**");
-		web.ignoring().antMatchers("/favicon.ico");
+		web.ignoring().antMatchers(
+				"/",
+				"/css/**",
+				"/js/**",
+				"/fonts/**",
+				"/img/**",
+				"/editor-app/**",
+				"/*.html",
+				"/static/**"
+				);
 	}
 	/**
 	 * session监听，防止重复登录

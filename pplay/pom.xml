@@ -163,22 +163,16 @@
 		<!-- 基础功能 -->
 		<!-- ******************************* 常用依赖库 ********************************** -->
 		<!-- 针对开发IO流功能的工具类库 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${commons.io.version}</version>
-		</dependency>
+		</dependency> -->
 		<!-- 文件上传 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>${commons.fileupload.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-io</groupId>
-					<artifactId>commons-io</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<!-- 常用的集合操作，丰富的工具类 -->
 		<dependency>
@@ -212,16 +206,21 @@
 			</exclusions>
 		</dependency>
 		<!-- 包含一些通用的编码解码算法. 如：MD5、SHA1、Base64等 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- 包含丰富的工具类如 StringUtils -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-
+		<!-- 为了处理request和response的请求 -->
+		<!-- <dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.6</version>
+		</dependency> -->
 		<!--shiro -->
 		<!-- <dependency> <groupId>org.apache.shiro</groupId> <artifactId>shiro-spring</artifactId> 
 			<version>1.4.0</version> </dependency> -->

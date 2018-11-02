@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,12 +33,12 @@ public class SysUserDetailsServiceImpl extends GenericService<SysUser, QuerySysU
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//从数据库中取出用户信息
 		SysUser sysuser=sysUserMapper.findByUserName(username);
-
+		//AuthenticationServiceException这个异常可以方便我们把他抛出去
 		if (sysuser==null) {
-			throw new UsernameNotFoundException("用户名不存在！");
+			throw new  AuthenticationServiceException("用户名不存在！");
 		}
 		if(sysuser.getStatus()!=StatusConstants.UserStatus.LOCKED){
-			throw new LockedException("用户账号被冻结，无法登陆请联系管理员！");
+			throw new AuthenticationServiceException("用户账号被冻结，无法登陆请联系管理员！");
 		}
 		//		//用户已经登录则此次登录失败
 		//		List<Object> o = sessionRegistry.getAllPrincipals();
@@ -50,8 +51,6 @@ public class SysUserDetailsServiceImpl extends GenericService<SysUser, QuerySysU
 		// 添加权限
 		List<SysRole> userRoles =userRoleService.listByUserId(sysuser.getUid());
 		for (SysRole userRole : userRoles) {
-
-
 			authorities.add(new SimpleGrantedAuthority(userRole.getRoleName()));
 		}
 		sysuser.setAuthorities(authorities);
