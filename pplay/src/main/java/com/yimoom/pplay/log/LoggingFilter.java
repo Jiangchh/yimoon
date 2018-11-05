@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,20 +16,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
+@Component
+@WebFilter(filterName = "loggingFilter", urlPatterns = "/*")
 public class LoggingFilter extends OncePerRequestFilter {
 
 	protected static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 	private static final String REQUEST_PREFIX = "Request: ";
-	private static final String RESPONSE_PREFIX = "Response: ";
 	private AtomicLong id = new AtomicLong(1);
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, final FilterChain filterChain) throws ServletException, IOException {
+		logger.info("这个类是{}",LoggingFilter.class);
 		if (logger.isDebugEnabled()) {
 			long requestId = id.incrementAndGet();
 			request = new RequestWrapper(requestId, request);
-			response = new ResponseWrapper(requestId, response);
 		}
 		try {
 			filterChain.doFilter(request, response);
@@ -36,7 +37,6 @@ public class LoggingFilter extends OncePerRequestFilter {
 		} finally {
 			if (logger.isDebugEnabled()) {
 				logRequest(request);
-				logResponse((ResponseWrapper) response);
 			}
 		}
 
@@ -89,17 +89,6 @@ public class LoggingFilter extends OncePerRequestFilter {
 		return request.getContentType() != null && request.getContentType().startsWith("multipart/form-data");
 	}
 
-	private void logResponse(final ResponseWrapper response) {
-		StringBuilder msg = new StringBuilder();
-		msg.append(RESPONSE_PREFIX);
-		msg.append("request id=").append((response.getId()));
-		try {
-			msg.append("; payload=").append(new String(response.toByteArray(), response.getCharacterEncoding()));
-		} catch (UnsupportedEncodingException e) {
-			logger.warn("Failed to parse response payload", e);
-		}
-		logger.debug(msg.toString());
-	}
 
 }
 

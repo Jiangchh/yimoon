@@ -58,7 +58,6 @@ public class Constants {
 		 */
 		 String DELETE = "delete";
 	}
-
 	/**
 	 * 性别
 	 */
@@ -73,4 +72,5 @@ public class Constants {
 		  Integer FEMALE = 0;
 	}
 
+	
 }

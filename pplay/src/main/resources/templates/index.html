@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-     <title th:text="${session.SPRING_SECURITY_CONTEXT.authentication.authorities[0].authority}" />
-    <!--<title >以梦为马后台管理系统</title>-->
+<!--<title th:text="${session.SPRING_SECURITY_CONTEXT.authentication.authorities[0].authority}" />
+ -->    
+    <title>以梦为马后台管理系统</title>
     <meta name="keywords" content="以梦为马后台管理系统">
     <meta name="description" content="以梦为马后台管理系统">
     <!--[if lt IE 9]>
@@ -30,12 +31,13 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div>
-                        <span><img alt="image" class="img-circle" height="60" width="60" th:src="${picUrl}"/></span>
+                        <span><img alt="image" class="img-circle" height="60" width="60" th:src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.icon}"/></span>
                         <h3 class="" style="color: #ffffff">
                             </i>以梦为马后台管理系统
                         </h3>
                     </div>
-                    <div class="dropdown profile-element hidden">
+                    </li>
+                    <!-- <div class="dropdown profile-element hidden">
 
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
@@ -58,17 +60,58 @@
                             </li>
                         </ul>
                         <div class="logo-element">BootDo</div>
-                    </div>
+                    </div> -->
+                <ul nav nav-tabs>
+                <li id="admin_member" class="J_menuItem" style="display:none;"
+                        data-toggle="tab"       data-index="0" th:href="@{/main}"><a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span
+                        class="nav-label">成员管理</span> <span class="fa arrow"></span>
+                     </a>
                 </li>
-                <li><a href="#"> <i class="fa fa-home"></i> <span
-                        class="nav-label">主页</span> <span class="fa arrow"></span>
-                </a>
-                    <ul class="nav nav-second-level">
-                        <li><a id="index001" class="J_menuItem" href="index_v1.html"
-                               data-index="0" th:href="@{/main}">了解BootDo</a></li>
-                    </ul>
+                <li id="admin_drama" class="J_menuItem" style="display:none;"
+                               data-index="1" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>剧本管理</span> <span class="fa arrow"></span>
+                     </a>
                 </li>
-                <li th:each="menu : ${menus}"><a href="#"> <i
+                <li id="admin_feedback" class="J_menuItem" style="display:none;"
+                               data-index="2" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>反馈信息</span><span class="fa arrow"></span> 
+                     </a>
+                </li>
+                <li id="writer_drama" class="J_menuItem" style="display:none;"
+                               data-index="0" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>剧本管理</span> <span class="fa arrow"></span>
+                     </a>
+                </li>
+                <li id="writer_details" class="J_menuItem" style="display:none;"
+                               data-index="1" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>个人信息</span><span class="fa arrow"></span> 
+                     </a>
+                </li>
+                
+                <li id="writer_message" class="J_menuItem" style="display:none;"
+                               data-index="2" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>消息</span><span class="fa arrow"></span> 
+                     </a>
+                </li>
+                <li id="editor_drama" class="J_menuItem" style="display:none;"
+                               data-index="0" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>剧本管理</span> <span class="fa arrow"></span>
+                     </a>
+                </li>
+                <li id="editor_details" class="J_menuItem" style="display:none;"
+                               data-index="1" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>个人信息</span> <span class="fa arrow"></span>
+                     </a>
+                </li>
+                
+                <li id="editor_message" class="J_menuItem" style="display:none;"
+                               data-index="2" th:href="@{/main}">
+                   <a href="#"> <i class="glyphicon glyphicon-wrench"></i> <span>消息</span> <span class="fa arrow"></span>
+                     </a>
+                </li>
+                </ul>
+                
+               <!--  <li th:each="menu : ${menus}"><a href="#"> <i
                         class="fa fa fa-bar-chart-o" th:class="${menu.attributes.icon}"></i>
                     <span class="nav-label" th:text="${menu.text}">基础信息</span> <span
                             class="fa arrow"></span>
@@ -78,7 +121,7 @@
                                                                   th:text="${cmenu.text}"
                                                                   th:href="${cmenu.attributes.url}">系统管理</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
     </nav>
@@ -88,21 +131,9 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation"
                  style="margin-bottom: 0">
-                <div class="navbar-header">
-
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-default "
-                       href="#" title="收起菜单"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom"
-                          method="post" action="">
-                        <div class="form-group">
-                            <input type="text" placeholder="请输入您需要查找的内容 …"
-                                   class="form-control" name="top-search" id="top-search">
-                        </div>
-                    </form>
-                </div>
-                <ul class="nav navbar-top-links navbar-right">
-                    <li class="hidden-xs"><a href="/blog" target="_Blank"
-                                             class=""><i class="fa fa-rss-square"></i>博客</a></li>
+                <ul class="nav navbar-top-links navbar-left">
+                  <!--   <li class="hidden-xs"><a href="/blog" target="_Blank"
+                                             class=""><i class="fa fa-rss-square"></i>博客</a></li> -->
                     <li class="dropdown"><a class="dropdown-toggle count-info"
                                             data-toggle="dropdown" href="#"> <i class="fa fa-envelope"></i>
                         <span class="label label-warning">{{total}}</span>通知
@@ -140,19 +171,18 @@
             </nav>
         </div>
         <div class="row content-tabs">
-            <button class="roll-nav roll-left J_tabLeft">
-                <i class="fa fa-backward"></i>
-            </button>
-            <nav class="page-tabs J_menuTabs">
+        <!-- navbar-minimalize的作用是缩小 -->
+         <a class="navbar-minimalize roll-nav roll-left J_tabLeft "
+                       href="#" title="收起菜单">
+                       <i class="fa fa-backward"></i>
+         </a>
+           <!--  <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
                     <a href="javascript:;" class="active J_menuTab"
                        data-id="index_v1.html">首页</a>
                 </div>
-            </nav>
-            <button class="roll-nav roll-right J_tabRight">
-                <i class="fa fa-forward"></i>
-            </button>
-            <div class="btn-group roll-nav roll-right">
+            </nav> -->
+            <div  class="btn-group roll-nav roll-right">
                 <button class="dropdown J_tabClose" data-toggle="dropdown">
                     关闭操作<span class="caret"></span>
                 </button>
@@ -165,6 +195,7 @@
             </div>
             <a href="/logout" class="roll-nav roll-right J_tabExit"><i
                     class="fa fa fa-sign-out"></i> 退出</a>
+                    
         </div>
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe0" width="100%" height="100%"
@@ -172,7 +203,7 @@
                     seamless></iframe>
         </div>
         <div class="footer">
-            <div class="pull-right">BootDo面向学习型的开源框架</div>
+            <div class="pull-right">位置</div>
         </div>
     </div>
     <!--右侧部分结束-->
@@ -300,20 +331,29 @@
 <script src="/js/appjs/oa/webSocket/stomp.min.js"></script>
 <!-- Toastr script -->
 <script src="/js/plugins/toastr/toastr.min.js"></script>
-<script type="text/javascript">
+<script th:inline="javascript">
     var stompClient = null;
     $(function () {
-        connect();
+        initial();
     });
 
-    function connect() {
+	function initial(){
+		var array=[[${session.SPRING_SECURITY_CONTEXT.authentication.authorities}]];
+		 $.each(array, function(i,val){      
+		      if(val.authority=='admin'){
+		    	  $("li[id^='admin_']").show();
+		    		  return false;
+		      }
+		  });   
+	}
+   /*  function connect() {
         var sock = new SockJS("/endpointChat");
         var stomp = Stomp.over(sock);
         stomp.connect('guest', 'guest', function(frame) {
 
             /**  订阅了/user/queue/notifications 发送的消息,这里雨在控制器的 convertAndSendToUser 定义的地址保持一致, 
              *  这里多用了一个/user,并且这个user 是必须的,使用user 才会发送消息到指定的用户。 
-             *  */
+             *  
             stomp.subscribe("/user/queue/notifications", handleNotification);
             stomp.subscribe('/topic/getResponse', function (response) { //订阅/topic/getResponse 目标发送的消息。这个是在控制器的@SendTo中定义的。
                 toastr.options = {
@@ -367,7 +407,7 @@
         created: function () {
             this.notify()
         }
-    })
+    }) */
 </script>
 </body>
 </html>

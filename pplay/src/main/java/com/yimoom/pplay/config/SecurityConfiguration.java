@@ -98,10 +98,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//以下这句就可以控制单个用户只能创建一个session，也就只能在服务器登录一次        
 		http.sessionManagement().maximumSessions(1)
 		//防止用户已经登陆
-		.maxSessionsPreventsLogin(true);
+		//.maxSessionsPreventsLogin(true);
 		//.sessionRegistry(getSessionRegistry())
 		//这个逻辑是第二次重复登陆，会把最近的一个用户设置为过期，然后再操作时跳转
-		//.expiredUrl("/login");
+		.expiredUrl("/login");
 	}
 	/**
 	 * 3. 使session失效
@@ -135,6 +135,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(
 				"/",
 				"/css/**",
+				"/oa/**",				
 				"/js/**",
 				"/fonts/**",
 				"/img/**",

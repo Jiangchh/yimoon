@@ -61,7 +61,7 @@
                     class="form-control pword m-b" placeholder="请‘美女/靓仔’输入密码"/>     
                     <span class="help-block" style="color:red" th:if="${param?.error}" 
                     th:text="${session?.SPRING_SECURITY_LAST_EXCEPTION?.message == 'Bad credentials' ?'密码错误':session?.SPRING_SECURITY_LAST_EXCEPTION?.message}"/>
-                     <input  type="submit" class="btn btn-login btn-block" value="登录" />
+                     <button   onclick="sendAjax()" class="btn btn-login btn-block"  />登录</button>
             </form>
         </div>
     </div>
@@ -89,6 +89,18 @@
         validateRule();
     });
 
+function sendAjax()
+{
+var username = $("#username").val(); 
+var password = $("#password").val(); 
+   $.ajax(
+    {
+        url:"/login",
+        data:{"cityName":cityname},
+        type:"post",
+       
+    }); 
+}
 
     function validateRule() {
         var icon = "<i class='fa fa-times-circle'></i> ";

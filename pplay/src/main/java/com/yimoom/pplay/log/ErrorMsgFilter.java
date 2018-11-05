@@ -27,20 +27,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.yimoom.pplay.common.util.RequestUtils;
 import com.yimoom.pplay.common.util.JsonHelper;
+import com.yimoom.pplay.common.util.RequestUtils;
 
 @Component
 @Order(1)
 @WebFilter(filterName = "errorMsgFilter", urlPatterns = "/*")
 public class ErrorMsgFilter implements Filter {
 	protected static final Logger logger = LoggerFactory.getLogger(ErrorMsgFilter.class);
-	private static final String RESPONSE_PREFIX = "Response: ";
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+		long startTime = System.currentTimeMillis();
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
-		ResponseWrapper wrapper = new ResponseWrapper(response);
 		RequestWrapper rwapper=new RequestWrapper(request);
 		ErrorMsgFilterResponseWrapper wwrapper = new ErrorMsgFilterResponseWrapper(response);
 
@@ -48,31 +47,16 @@ public class ErrorMsgFilter implements Filter {
 			filterChain.doFilter(request, response);
 		} finally {
 			if (logger.isInfoEnabled()) {
+				logger.info("这个类是{}",ErrorMsgFilter.class);
 				dumpRequest(rwapper);
-				logResponse(wrapper);
 				logger.info("这里打印的内容是:{}",wwrapper.getResponseData("UTF-8"));
+				logger.info("耗时 : " + (System.currentTimeMillis() - startTime));
 			}
 		}
 		
 		
 	}
-	private void logResponse(final ResponseWrapper response) {
-		try {
-		if(logger.isInfoEnabled()) {
-	    logger.info("--------------------response dump  begin-------------------------");
-		StringBuilder msg = new StringBuilder();
-		msg.append(RESPONSE_PREFIX);
-		msg.append("request id=").append((response.getId()));
-		msg.append("; payload=").append(new String(response.toByteArray(), response.getCharacterEncoding()));
-		logger.debug(msg.toString());
-	    logger.info("--------------------response dump  end-------------------------");
-
-		}
-		} catch (Throwable e) {
-			logger.warn("Failed to parse response payload", e);
-			
-		}
-	}
+	
 	public void dumpRequest(HttpServletRequest request) {
 		try {
 			if (logger.isInfoEnabled()) {
@@ -93,7 +77,6 @@ public class ErrorMsgFilter implements Filter {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	private void dumpRequestHeaders(HttpServletRequest request) {
 		for (Enumeration<String> headerNames = request.getHeaderNames(); headerNames.hasMoreElements();) {
 			String headerName = headerNames.nextElement();
@@ -103,7 +86,6 @@ public class ErrorMsgFilter implements Filter {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public void dumpSession(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if (null != session) {
@@ -116,7 +98,6 @@ public class ErrorMsgFilter implements Filter {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	private void dumpRequestParams(HttpServletRequest request) {
 		for (Enumeration<String> paramNames = request.getParameterNames(); paramNames.hasMoreElements();) {
 			String paramName = paramNames.nextElement();

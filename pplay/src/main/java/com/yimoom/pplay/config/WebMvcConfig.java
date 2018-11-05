@@ -15,6 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	    //classpath相当于项目下面的resource文件夹，从这往下配置路径
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+		registry.addResourceHandler("/oa/**").addResourceLocations("classpath:/templates/oa/");
 		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
 		registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
 		registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
