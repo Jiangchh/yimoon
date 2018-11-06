@@ -2,11 +2,14 @@ package com.yimoom.pplay.constants;
 
 public class StatusConstants {
 		public interface UserStatus{
-			Integer UNLOCK=0;
+			/**
+			 * 正常
+			 */
+			Integer UNLOCK=3;
 			/**
 			 * 账号冻结
 			 */
-			Integer LOCKED=1;
+			Integer LOCKED=2;
 		}
 		public interface LoginStatus{
 			

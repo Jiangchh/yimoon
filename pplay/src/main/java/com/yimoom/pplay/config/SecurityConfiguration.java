@@ -135,6 +135,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers(
 				"/",
 				"/css/**",
+				"/lib/**",
+				"/temp/**",
 				"/oa/**",				
 				"/js/**",
 				"/fonts/**",

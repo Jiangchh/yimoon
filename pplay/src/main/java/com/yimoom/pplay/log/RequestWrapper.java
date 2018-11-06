@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import reactor.core.publisher.SynchronousSink;
+
 
 
 public class RequestWrapper extends HttpServletRequestWrapper {
@@ -23,7 +25,8 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 	private long id;
 
 	private final byte[] body;
-
+	InputStream inputStream = null;
+	BufferedReader reader = null;
 	public RequestWrapper(long requestId,HttpServletRequest request) throws IOException {
 		super(request);
 		body = getBodyString(request).getBytes(Charset.forName("UTF-8"));
@@ -78,11 +81,27 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 		};
 	}
 
+    public void close() {
 
+		if (reader != null) {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				logger.warn("处理异常",e);
+			}
+		}
+		if (inputStream != null) {
+			try {
+				inputStream.close();
+			} catch (IOException e) {
+				logger.warn("处理异常",e);
+			}
+		}
+	
+    }
 	public  String getBodyString(ServletRequest request) {
 		StringBuilder sb = new StringBuilder();
-		InputStream inputStream = null;
-		BufferedReader reader = null;
+		
 		try {
 			inputStream = request.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
@@ -92,22 +111,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 			}
 		} catch (IOException e) {
 			logger.warn("处理异常",e);
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-					logger.warn("处理异常",e);
-				}
-			}
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					logger.warn("处理异常",e);
-				}
-			}
-		}
+		} 
 		return sb.toString();
 	}
 }

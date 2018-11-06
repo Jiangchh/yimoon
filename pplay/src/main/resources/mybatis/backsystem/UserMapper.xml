@@ -126,6 +126,18 @@
 			<if test=" lastAccessTime != null and lastAccessTime != ''"> And LastAccessTime=#{lastAccessTime} </if>
 		</where>
 	</select>
+	<!-- 根据特定条件查询对象 -->
+	<select id="SearchUser" resultType="com.yimoom.pplay.domain.sys.query.QuerySysUser" parameterType="com.yimoom.pplay.domain.sys.query.QuerySysUser">
+		select
+		su.Uid,su.Name,su.Gender,sr.role_name,su.PhoneNo,su.Mail,su.LastAccessTime,su.version,su.status
+		FROM Sys_User su,sys_role sr,sys_user_role sur
+		<where>
+			su.uid=sur.uid and sr.rid=sur.rid
+			<if test=" name != null and name != ''"> And su.Name=#{name}, </if>
+			<if test=" gender != null and gender != ''"> And su.Gender=#{gender}, </if>
+			<if test=" roleName != null and roleName != ''"> And sr.Role_Name=#{roleName}, </if>
+		</where>
+	</select>
 	<!--分页查询-->
 	<select id="findByPage" parameterType="com.yimoom.pplay.domain.sys.query.QuerySysUser" resultMap="UserMap">
 		select Uid,Name,Account,Password,Icon,NickName,Gender,Age,PhoneNo,Mail,CreateDate,Version,
@@ -155,7 +167,7 @@
 				order by ${sort} ${order}
 			</when>
 			<otherwise>
-				order by id desc
+				order by uid desc
 			</otherwise>
 		</choose>
 		<if test="offset != null and limit != null">

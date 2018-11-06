@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.ibatis.type.Alias;
 
 import com.yimoom.pplay.common.base.entity.QueryBase;
+import com.yimoom.pplay.constants.UserEnum;
 @Alias("QuerySysUser")
 public class QuerySysUser extends QueryBase{
 	private Long uid;              
@@ -24,6 +25,10 @@ public class QuerySysUser extends QueryBase{
 	private Long orderNo;
 	private Integer onlineStatus;
 	private Date lastAccessTime;
+	private String roleName;
+	private String roleDescription;
+	private String genderName;
+	private String statusName;
 	public Long getUid() {
 		return uid;
 	}
@@ -64,6 +69,9 @@ public class QuerySysUser extends QueryBase{
 		return gender;
 	}
 	public void setGender(Integer gender) {
+		if(gender!=null) {
+			this.genderName=UserEnum.desc(gender);
+		}
 		this.gender = gender;
 	}
 	public Integer getAge() {
@@ -100,7 +108,11 @@ public class QuerySysUser extends QueryBase{
 		return status;
 	}
 	public void setStatus(Integer status) {
+		
 		this.status = status;
+		if(this.status!=null) {
+			this.statusName=UserEnum.desc(this.status);
+		}
 	}
 	public String getRemark() {
 		return remark;
@@ -125,6 +137,37 @@ public class QuerySysUser extends QueryBase{
 	}
 	public void setLastAccessTime(Date lastAccessTime) {
 		this.lastAccessTime = lastAccessTime;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	public String getGenderName() {
+		if(this.gender!=null) {
+			this.genderName=UserEnum.desc(this.gender);
+		}
+		return genderName;
+	}
+	
+	public String getStatusName() {
+		if(this.status!=null) {
+			this.statusName=UserEnum.desc(this.status);
+		}
+		return statusName;
+	}
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+	public void setGenderName(String genderName) {
+		this.genderName = genderName;
+	}
+	public String getRoleDescription() {
+		return roleDescription;
+	}
+	public void setRoleDescription(String roleDescription) {
+		this.roleDescription = roleDescription;
 	}
 	
 }

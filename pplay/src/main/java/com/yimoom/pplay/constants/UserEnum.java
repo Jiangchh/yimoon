@@ -7,7 +7,9 @@ import com.yimoom.pplay.common.base.constants.BaseEnum;
 
 public enum UserEnum implements BaseEnum<Integer, String>{
 	FEMALE(0, "女"),
-	MALE(1, "男");
+	MALE(1, "男"),
+	LOCK(2, "冻结"),
+	UNLOCK(3, "正常");
 	private Integer code;
 
     private String desc;

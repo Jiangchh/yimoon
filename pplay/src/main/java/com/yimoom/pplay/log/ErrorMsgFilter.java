@@ -52,6 +52,7 @@ public class ErrorMsgFilter implements Filter {
 				logger.info("这里打印的内容是:{}",wwrapper.getResponseData("UTF-8"));
 				logger.info("耗时 : " + (System.currentTimeMillis() - startTime));
 			}
+			rwapper.close();
 		}
 		
 		

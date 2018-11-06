@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
-
+	/*@RequestMapping(value="/welcome", method = RequestMethod.GET)
+	public String welcome() {
+		return "welcome";
+	}*/
     @RequestMapping(value="/offline", method = RequestMethod.GET)
     @ResponseBody
     public String offline (HttpServletRequest request, HttpServletResponse response) {

@@ -1,0 +1,1 @@
+update Sys_user set icon='/img/a1.jpg' where uid=1;
