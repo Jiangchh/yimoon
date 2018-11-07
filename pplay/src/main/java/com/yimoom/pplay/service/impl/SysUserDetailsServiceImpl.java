@@ -59,7 +59,7 @@ public class SysUserDetailsServiceImpl extends GenericService<SysUser, QuerySysU
 		if (sysuser==null) {
 			throw new  AuthenticationServiceException("用户名不存在！");
 		}
-		if(sysuser.getStatus()!=StatusConstants.UserStatus.LOCKED){
+		if(sysuser.getStatus()==StatusConstants.UserStatus.LOCKED){
 			throw new AuthenticationServiceException("用户账号被冻结，无法登陆请联系管理员！");
 		}
 		//		//用户已经登录则此次登录失败

@@ -16,6 +16,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 		registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
 		registry.addResourceHandler("/lib/**").addResourceLocations("classpath:/static/lib/");
+		registry.addResourceHandler("/test/**").addResourceLocations("classpath:/templates/test/");
 		registry.addResourceHandler("/temp/**").addResourceLocations("classpath:/static/temp/");
 		registry.addResourceHandler("/oa/**").addResourceLocations("classpath:/templates/oa/");
 		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
@@ -41,6 +42,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
         registry.addViewController("/admin-member-list*").setViewName("admin-member-list");
         registry.addViewController("/member-add.*").setViewName("member-add");
         registry.addViewController("/member-show.*").setViewName("member-show");
+        registry.addViewController("/test/table").setViewName("test/table");
 
 	}
 	
