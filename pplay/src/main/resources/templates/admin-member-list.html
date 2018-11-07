@@ -209,6 +209,7 @@ $(function(){
             $.ajax({
                 type : 'POST',
                 url : sSource,
+                contentType: 'application/json',
                 async : false,
                 data : {
                     "aoData" : JSON.stringify(aoData)
