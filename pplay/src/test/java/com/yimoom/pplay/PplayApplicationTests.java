@@ -17,6 +17,13 @@ import org.springframework.util.ResourceUtils;
 @SpringBootTest
 public class PplayApplicationTests {
 	@Test
+	public void getResource() {
+		String s1 = System.getProperty("user.dir");
+		
+		System.err.println(s1);
+		System.err.println("###############################################");
+	}
+	//@Test
 	public void createpassword() {
 		String password=new BCryptPasswordEncoder().encode("123456");
 		

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yimoom.pplay.dao.PlayMapper">
+    <resultMap type="com.yimoom.pplay.domain.app.query.PlayListQueryDo" id="ListViewMap">
+		<result property="name" column="name" />
+		<result property="role_num" column="role_num" />
+		<result property="difficulyName" column="dfname" />
+		<result property="introduction" column="Introduction" />
+		<result property="timePeriods" column="timePeriods" />
+		<collection property="typeName" ofType="String"
+			javaType="ArrayList">
+			<result column="typename" property="typeName" jdbcType="VARCHAR" />
+		</collection>
+	</resultMap>
+	<select id="getPlayListView" parameterType="com.yimoom.pplay.domain.app.query.PlayListQueryDo"
+		resultMap="ListViewMap">
+		select d.name,d.timePeriods,d.role_num,df.name dfname,t.name typename,d.Introduction from play_drama d,play_difficulty df,play_type t,play_drama_type dt
+		<where>
+		d.DifficultyId=df.did and t.ptid=dt.ptid and dt.pid=d.pid
+			<if test=" role_num != null and role_num != ''"> And d.Role_Num=#{role_num}, </if>
+			<if test=" typekey != null and typekey != ''"> And t.key=#{typekey}, </if>
+			<if test=" difficulyKey != null and difficulyKey != ''"> And df.key=#{difficulyKey}, </if>
+			
+		</where>
+		
+	</select>
+ 
+
+
+</mapper>

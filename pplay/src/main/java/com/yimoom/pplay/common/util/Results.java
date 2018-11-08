@@ -44,17 +44,8 @@ public class Results {
         return new Result(true, status, null, msg);
     }
 
-    public static Result successWithData(Object data) {
-        return new Result(true, null, null, data);
-    }
-
-    public static Result successWithData(Object data, String msg) {
-        return new Result(true, null, msg, data);
-    }
-
-    public static Result successWithData(Object data, String code, String msg) {
-        return new Result(true, code, msg, data);
-    }
+   
+   
 
     //
     // 业务调用失败
@@ -79,16 +70,6 @@ public class Results {
         return new Result(false, status, null, msg);
     }
 
-    public static Result failureWithData(Object data) {
-        return new Result(false, null, null, data);
-    }
-
-    public static Result failureWithData(Object data, String msg) {
-        return new Result(false, null, msg, data);
-    }
-
-    public static Result failureWithData(Object data, String code, String msg) {
-        return new Result(false, code, msg, data);
-    }
+   
 
 }

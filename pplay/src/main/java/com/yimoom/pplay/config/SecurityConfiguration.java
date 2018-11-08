@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//不需要权限认证的url
 		.antMatchers("/login").permitAll()
 		// 对于获取token的rest api要允许匿名访问
-		.antMatchers("/auth/**").permitAll()
+		.antMatchers("/play/**").permitAll()
 		.antMatchers("/test/**").permitAll()
 	
 		

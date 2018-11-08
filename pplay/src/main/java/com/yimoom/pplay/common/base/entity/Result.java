@@ -2,6 +2,7 @@ package com.yimoom.pplay.common.base.entity;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @version 1.0
  * @author jiangchenghua 2018-10-24
  */
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1430633339880116031L;
 
     /**
@@ -37,7 +38,7 @@ public class Result implements Serializable {
      * 相关数据
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Object data;
+    private List<T> data;
 
 
     public Result() {}
@@ -64,7 +65,7 @@ public class Result implements Serializable {
         this.msg = msg;
     }
 
-    public Result(boolean success, String code, String msg, Object data){
+    public Result(boolean success, String code, String msg, List<T>data){
         this(success);
         this.code = code;
         this.msg = msg;
@@ -103,11 +104,11 @@ public class Result implements Serializable {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }
